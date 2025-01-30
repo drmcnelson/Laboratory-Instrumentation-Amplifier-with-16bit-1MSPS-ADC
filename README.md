@@ -139,7 +139,7 @@ We recommend these over the R4 and N144 because of the faster processor and fast
 ### c) Power requirements and recommended power supply
 The INA requires a -5V,+5V power supply.
 The repo for our [+/-5V insrument power supply is  here](https://github.com/drmcnelson/Dual-pos-neg-5V-Supply-from-USB-power)
-The power architecture of the INA assumes the the board is powered by this power supply.
+The power architecture of the INA assumes the board is powered by this power supply.
 The power supply in turn is normally powered from the filtered +5V power connecter provided on the controller although it can alteernatively be powered directly from USB
 
 ### d) The complete setup with controller and recommended power supply.
@@ -590,7 +590,7 @@ N.B. When impedances are large, small capacitances become even more important.  
 ### f) Power supply rejection ratio.
 
 Almost any active part used in an analog circuit has a power supply rejection ratio PSRR listed in its datasheet.
-The name of the game, is that the PSRR for each part involved in the analog chain acting on the the noise level of whatever is powering it, has to be better than the noise level that we are trying to achieve in our design.   For a 16 bit board, we need an SNR better than 96dB.
+The name of the game, is that the PSRR for each part involved in the analog chain acting on the noise level of whatever is powering it, has to be better than the noise level that we are trying to achieve in our design.   For a 16 bit board, we need an SNR better than 96dB.
 
 The recommended power supply is posted [here](https://github.com/drmcnelson/Dual-pos-neg-5V-Supply-from-USB-power).
 This is based on the LT1930 and LT1930, the datasheets indicate output noise of about 1mV.   For our amplifier chips a PSRR of even 60dB will get us into the μV range that we need for our noise specs. PSRR for the ADA4510 is 140dB, so we're in pretty good shape.
