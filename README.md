@@ -89,7 +89,7 @@ We believe that combining high end instrumentation circuits with the new generat
 There is a sponsor button at the top of this repository.  Please do consider joining with us and contributing to our effort.
 
 <a name="pcbway1"></a>
-### Our sponsor - [PCBWay](https://www.pcbway.com/) 
+### Our sponsor for the INA - [PCBWay](https://www.pcbway.com/) 
 
 We want to express special appreciation to PCBWay for sponsoring assembly of the first INA boards.  I enjoyed working them and we plan to work with PCBWay going forward.  Going back to PCBWay for the next designs and contributing to their community project forum, really is the best kind of praise that I can muster for any vendor.
 
