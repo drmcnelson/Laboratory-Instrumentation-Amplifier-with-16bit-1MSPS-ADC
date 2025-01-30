@@ -93,7 +93,7 @@ There is a sponsor button at the top of this repository.  Please do consider joi
 
 We want to express special appreciation to PCBWay for sponsoring assembly of the first INA boards.  I enjoyed working them and we plan to work with PCBWay going forward.  Going back to PCBWay for the next designs and contributing to their community project forum, really is the best kind of praise that I can muster for any vendor.
 
-On that note, we plan to post this design to the PCBWay community forum as our first experiment in this pardadim.  We are eager to see how it works out.
+On that note, we plan to post this design to the PCBWay community forum as our first experiment in this paradigm.  We are eager to see how it works out.
 
 <a name="boards"></a>
 ### Obtaining boards:
