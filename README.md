@@ -128,7 +128,7 @@ SPICE models - in LTSpice for the complete circuit and including a model for the
 
 
 ### a) Fabrication
-In the KiCAD files directory you will find a zip file with gerbers, drill and placement files, and a BOM.  These are easily regenerated from the KiCAD files.  If you are not familiar with ordering PCBs or assembly, the support team at PCBWay will guide you through the process.  Alternatively, you can sponsor a fabrication and run get a board.  Contact me for more information about this.
+In the KiCAD files directory you will find a zip file with gerbers, drill and placement files, and a BOM.  These are easily regenerated from the KiCAD files.  If you are not familiar with ordering PCBs or assembly, the support team at PCBWay will guide you through the process.  Alternatively, you can sponsor a fabrication run and get a board.  Contact me for more information about this.
 
 ### b) Controllers
 You may want to use the INA with one of our controllers.
