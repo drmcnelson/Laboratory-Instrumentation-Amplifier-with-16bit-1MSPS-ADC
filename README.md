@@ -12,7 +12,7 @@
 [3. Spice model](#spice)<br>
 [4. ADC sampling and timing](#timing)<br>
 [5. Detailed part selection](#parts)<br>
-[6. PCBWay sponsorship and acknowedgement](#ack)<br>
+[6. PCBWay sponsorship and acknowledgement](#ack)<br>
 
 ---
 <br>
@@ -29,7 +29,7 @@ In particular, there is a well known trade-off where precision or sensitivity co
 INAs are typically low bandwidth devices.
 But there are interesting phenomena, for example involving charge processes on microsecond time scales, where high impedance measurements with a fast INA would be an especially useful tool.
 
-This limition in traditional INAs arises, at least in part, in two properties of amplifier chips; the input voltage noise density e<sub>n</sub> (V/√Hz) and the input current noise density i<sub>n</sub> (A/√Hz).
+This limitation in traditional INAs arises, at least in part, in two properties of amplifier chips; the input voltage noise density e<sub>n</sub> (V/√Hz) and the input current noise density i<sub>n</sub> (A/√Hz).
 At a given bandwidth and impedance these contribute to the noise as *v*<sub>e,rms</sub> ≈ e<sub>n</sub>√f and *v*<sub>i,rms</sub> ≈ z<sub>n</sub> i<sub>n</sub> √f.
 Note that both have a factor of root frequency but the current noise density is also multiplied by impedance.
 We can think of a "noise resistance", R<sub>n</sub> = e<sub>n</sub>/i<sub>n</sub>.
@@ -37,23 +37,23 @@ When the amplifier input sees an impedance larger than R<sub>n</sub>, current no
 Low noise with high impedance and bandwidth requires low noise density with high noise resistance, alongside adequate bandwidth and slew.
 
 Let's illustrate this with a numerical example. If we want 16 bit data for a signal of 1V, the noise (rms) should to be around 10μV or smaller.
-For a bandwdith of 1MHz, we need e<sub>n</sub> ≈ 10nV/√Hz.
+For a bandwidth of 1MHz, we need e<sub>n</sub> ≈ 10nV/√Hz.
 And for an impedance 10Mohm, we need i<sub>n</sub>  ≈ 1fA/√Hz.
 That is, we need current noise density in the range of single digit fA/√Hz, or smaller.
 It is challenging to find what we need in older INA chips (see [Table 5.8 in H&H AOE 3rd ed.](https://archive.org/details/the-art-of-electronics-3rd-ed-2015_202008/page/363/mode/1up)),
-But there *are* newer OPAMPs with ~10nV/√Hz and ~1fA/√Hz noise densities, >MHZ bandwdith and >10V/μs slew.
+But there *are* newer Op Amps with ~10nV/√Hz and ~1fA/√Hz noise densities, >MHZ bandwidth and >10V/μs slew.
 So, this is where a "roll your own" approach can be an advantage over older INA chips.
 
 Another issue in traditional INAs is that they most often have single ended outputs.
 The modern paradigm in high performance analog to digital converters (ADC) is increasingly to have differential inputs.
-And, there is a large repertoire of high performance fully differential amplifiers (FDA) designed specificially to drive these differential ADCs.
+And, there is a large repertoire of high performance fully differential amplifiers (FDA) designed specifically to drive these differential ADCs.
 Rather than run a single ended BNC across the lab to an analog input in a crate, nowadays we interface our high performance analog circuit over a short differential path to a high performance ADC co-located on the same board and export an all digital interface to an inexpensive microcontroller board or a computer.
 The analog noise is well managed within a small area of the circuit board, and an all differential signal path helps control noise all the way to the ADC with its digital interface.
 
 <a name="about"></a>
 ### About the INA and other contents of this repository:
 
-In this repository we provide cad files and software codes to make and operate an up-to-date instrumentation amplifier (INA) that can accomodate 10Mohm impedances with 16 bit precision at 1MSPS.
+In this repository we provide cad files and software codes to make and operate an up-to-date instrumentation amplifier (INA) that can accommodate 10Mohm impedances with 16 bit precision at 1MSPS.
 The host interface is a simple convert (CNVST) signal and SPI.
 Asserting the "CNVST" line initiates conversion to digital and
 after 700 nsecs, with CNVST low, a 16 bit SPI transfer retrieves the data.
@@ -72,10 +72,10 @@ As described below, the basic operation of the device is simple and it should be
 In the following we include some discussion of the design process, especially as related to part selection.
 And we provide spice models that may help you check your changes if you want to make any changes to the design.
 
-For a more thorough discussion of the electrical topics mentioned here, the reader is referred to Horowitz, P., & Hill, W. (2015). The art of electronics (3rd ed.). Cambridge University Press. ISBN-10 0521809266.  Especially see Chapter 5 "Precision Circuits" and Chaper 8 "Low Noise Technigues".
+For a more thorough discussion of the electrical topics mentioned here, the reader is referred to Horowitz, P., & Hill, W. (2015). The art of electronics (3rd ed.). Cambridge University Press. ISBN-10 0521809266.  Especially see Chapter 5 "Precision Circuits" and Chapter 8 "Low Noise Techniques".
 
 <a name="spi"></a>
-### A word on the Spi Instrumenation Project:
+### A word on the Spi Instrumentation Project:
 
 Building instruments is an old tradition in science.  Many of the great advances were by scientists working with instrument makers or who were themselves great instrument makers.  In recent decades there is a different kind of pressure on academic science.  There seems to be less time or interest for learning those kinds of skills, compared to writing proposals to buy equipment.
 Consequently doing science has become much more expensive and the sort of science someone gets to do increasingly becomes a function of where they are.
@@ -132,15 +132,15 @@ In the KiCAD files directory you will find a zip file with gerbers, drill and pl
 
 ### b) Controllers
 You may want to use the INA with one of our controllers.
-Pleasee our [T4.0 based controller, here](https://github.com/drmcnelson/SPI-Instrumentation-Controller-T4.0)
+Please see our [T4.0 based controller, here](https://github.com/drmcnelson/SPI-Instrumentation-Controller-T4.0)
 and our [T4.1 based controller, here](https://github.com/drmcnelson/SPI-Instrumentation-Controller-T4.1).
 We recommend these over the R4 and N144 because of the faster processor and faster USB and because of the native 16 bit transfer capability already built into  the Teensy SPI library
 
 ### c) Power requirements and recommended power supply
 The INA requires a -5V,+5V power supply.
-The repo for our [+/-5V insrument power supply is  here](https://github.com/drmcnelson/Dual-pos-neg-5V-Supply-from-USB-power)
-The power architecture of the INA assumes the board is powered by this power supply.
-The power supply in turn is normally powered from the filtered +5V power connecter provided on the controller although it can alteernatively be powered directly from USB
+The repo for our [+/-5V instrument power supply is  here](https://github.com/drmcnelson/Dual-pos-neg-5V-Supply-from-USB-power)
+The power architecture of the INA assumes the the board is powered by this power supply.
+The power supply in turn is normally powered from the filtered +5V power connector provided on the controller although it can alternatively be powered directly from USB
 
 ### d) The complete setup with controller and recommended power supply.
 The following shows complete setup with the T4 based controller and power supply.  Notice the power supply is powered by the +5V connector on the controller and then powers the INA.   The INA is connected to the controller by a 12 pin (2x6) ribbon cable.
@@ -153,25 +153,25 @@ The following shows complete setup with the T4 based controller and power supply
 The range at each side of the differential input is +/-4V.
 Full scale for the differential signal is therefore 8V.
 Spectral response is flat from DC.
-There is a low pas filter with time constant at the Nyquist limit for the 1MHz sample rate.
+There is a low pass filter with time constant at the Nyquist limit for the 1MHz sample rate.
 
 ### f) Increasing gain
 Gain can be increased by adding the resistor Rg.
-There is a thru hole footprint for this part located between the input header and the first opamp chip.
+There is a thru hole footprint for this part located between the input header and the first op amp chip.
 The gain equation is G = 1/2 + 10K/Rg.
 Rg = 100 will give you a gain of 100.5.
-And with a gain of 100, 40mV is full scale on each side of the differential input and the full scale differential signal is 80mV.
-Larger inputs will clip since the rails for the OPAMPs are just a little past -4V and +4V.
+With a gain of 100, full scale on each side of the differential input is 40mV and the full scale differential signal is 80mV.
+Larger inputs will clip since the rails for the Op Amps are just a little past -4V and +4V.
 
 ### g) Jumpers, selecting input impedance
 There are two jumpers adjacent to each side of the differential input.
 These allow you to select a 10M or 100K shunt to ground.
-It is important to have some path to ground whether it is through the shunt resistor or the sample, rather than leave the input to drift off to one of the rails.
+It is important to have some path to ground, whether it is through the shunt resistor or the sample, rather than leave the input to drift off to one of the rails.
 
 ### h) Thermistor and measurements with voltage divider
-You might use the interal 100K shunt with an external thremistor for accurate temperature measurements, or with an external resistor to form a divider to look at larger voltages.
+You might use the internal 100K shunt with an external thermistor to make accurate temperature measurements, or with an external resistor to form a divider to look at larger voltages.
 
-The setup with a thermistor would look like the following where Vin is a known constant voltge and the internal resistor is selected by the jumpers as described above.  The controller has a high precision voltage reference output that you can use for this.
+The setup with a thermistor would look like the following where Vin is a known constant voltage and the internal resistor is selected by the jumpers as described above.  The controller has a high precision voltage reference output that you can use for this.
 
 <p align="center">
 <img src="./Images/divider.jpg" alt="divider" width="150px" height="auto">
@@ -268,7 +268,7 @@ Analog Power
 ### a) Architecture
 
 The traditional INA architecture is shown in the following diagram.
-The input stage is a pair of OPAMPs tied together by the resistor network R1-Rg-R1. The second stage is a difference amplifier with single ended output.
+The input stage is a pair of Op Amps tied together by the resistor network R1-Rg-R1. The second stage is a difference amplifier with single ended output.
 The overall gain is G = (1 + 2R1/Rg)(R3/R2).
 This is a well studied circuit, you can read about it
 in the textbook Horowitz and Hill cited in the introduction,
@@ -297,10 +297,10 @@ INA with differential output stage and differential ADC.
 
 ### b) Component selection, in brief
 
-For our OPAMP selection, key parameters include the input current noise density i<sub>n</sub>, input voltage noise density e<sub>n</sub>, slew rate, and power supply rejection ratio (PSRR) as follows:
+For our OP AMP selection, key parameters include the input current noise density i<sub>n</sub>, input voltage noise density e<sub>n</sub>, slew rate, and power supply rejection ratio (PSRR) as follows:
 <ul>
 <li>
-Voltage noise density should be in the range of nV/√Hz is a pre-requisite for 16 bit precision with 1MHz bandwith.
+Voltage noise density should be in the range of nV/√Hz is a pre-requisite for 16 bit precision with 1MHz bandwidth.
 </li>
 <li>
 Current noise density in the range of single digit fA/√Hz is a pre-requisite for 16 bit precision with order 10 Mohm input impedance and 1 MHz bandwidth.
@@ -309,22 +309,22 @@ Current noise density in the range of single digit fA/√Hz is a pre-requisite f
 Slew rate in the range of 10V/us or better is a requirement for being able to study phenomena that appear as steps or transients on a μs time scale.
 </li>
 <li>
-Power supply rejection ratio above 60dB for the OPAMP and FDA with the recommended power supply, discussed later in further detail for the ADC.
+Power supply rejection ratio above 60dB for the OP AMP and FDA with the recommended power supply, discussed later in further detail for the ADC.
 </li>
 </ul>
 
-For the design provided here, the input stage is an ADA4510-2,  which is a dual OPAMP with i<sub>n</sub> = 4fA/√Hz, e<sub>n</sub> ≈ 5nV/√Hz, maximum slew = 19V/μs and PSRR 140dB.
+For the design provided here, the input stage is an ADA4510-2,  which is a dual OP AMP with i<sub>n</sub> = 4fA/√Hz, e<sub>n</sub> ≈ 5nV/√Hz, maximum slew = 19V/μs and PSRR 140dB.
 As noted above, at 10Mohms at 1MHz, our noise is 40uV.
 
 For the FDA, all of the above are important except that the current noise requirement is relaxed since the FDA sees low source impedances in the outputs from the first stage.  We choose an LT1994, which exceeds the front end specs with e<sub>n</sub> ≈ 3nV/√Hz and slew at 85V/μs.  Its PSRR is 105dB.
 
 Both the ADA4510 and LT1994 are rail to rail parts.
 
-For the ADC, our requirements include 16bits, 1MSPS, differential inputs, reference voltage, input range to 4V, SPI for the interface to the MCU, and able to accomodate 3.3V or 5V logic levels to be able to interface to a wide range of Arduino boards.  The precision and speed puts us in the range of a SAR type ADC.
+For the ADC, our requirements include 16bits, 1MSPS, differential inputs, reference voltage, input range to 4V, SPI for the interface to the MCU, and able to accommodate 3.3V or 5V logic levels to be able to interface to a wide range of Arduino boards.  The precision and speed puts us in the range of a SAR type ADC.
 The flexibility in logic levels narrows the selection somewhat.
 It is also important to closely check performance specs including latency, missing codes, SNR, INL and DNL.
 
-In this design we choose the Microchip MCP33131D as a 16 bit differential input 1MSPS SAR type ADC with SPI that can accomodate 3.3V logic for the Teensy boards or 5V logic for the Uno and Nucleo boards.
+In this design we choose the Microchip MCP33131D as a 16 bit differential input 1MSPS SAR type ADC with SPI that can accommodate 3.3V logic for the Teensy boards or 5V logic for the Uno and Nucleo boards.
 The SNR is listed as 91.3 dB which translates to a noise level of about 1 LSB.
 This is one spec where the corresponding TI part might seem marginally better, but it comes at the cost of only accepting 3.3V logic.
 
@@ -335,7 +335,7 @@ For a voltage reference we select the REF3440 which has 3.8uV/V noise, low dropo
 SAR type ADCs, like most analog input architectures, feature a switched sampling capacitor.
 A simplified version is as follows.
 The switch closes connecting the input to the sampling capacitor.
-The resistor represents the overal resistance inside the input including the closed resistance of the switch.
+The resistor represents the overall resistance inside the input including the closed resistance of the switch.
 The capacitor then charges to the voltage at the input.
 The switch opens and the SAR reads the voltage and converts it to a digital representation.
 
@@ -343,7 +343,7 @@ The switch opens and the SAR reads the voltage and converts it to a digital repr
 <img src="./Images/SimpleSamplingSAR.jpg" alt="SimpleSampling" width="30%">
 </p>
 
-There are two interelated challenges in driving a switched capacitor network; providing a charge reservoir for the in-rush current when the switch closes, and assuring that the capacitor charges quickly enough or that there is sufficient time in the sampling window, for the sampling capacitor to come within 1 LSB of the input voltage.
+There are two interrelated challenges in driving a switched capacitor network; providing a charge reservoir for the in-rush current when the switch closes, and assuring that the capacitor charges quickly enough or that there is sufficient time in the sampling window, for the sampling capacitor to come within 1 LSB of the input voltage.
 The recommended strategy is to provide a charge reservoir in the form of an external capacitor, and a buffer amplifier to charge the reservoir, as follows.
 
 <p align="center">
@@ -357,7 +357,7 @@ The buffer has to supply current on the slower time scale to keep the reservoir 
 The design process for the interface to the ADC is then:
    1) Choose the external capacitor to be a few times larger than the internal capacitor, then
    2) Choose the external resistor so that the time constant is faster than 1/2 of the sampling rate, and then
-   3) Choose an opamp that is (a) able to deliver current equal to the full scale voltage divided by the external resistor, and (b) has a maximum slew that is much larger than the full scale voltage divided by the sampling period.
+   3) Choose an op amp that is (a) able to deliver current equal to the full scale voltage divided by the external resistor, and (b) has a maximum slew that is much larger than the full scale voltage divided by the sampling period.
  
  With that high level view, let's take a look at our ADC.
 
@@ -407,7 +407,7 @@ INA circuit model for SPICE,
 </p>
 </figure>
 
-The following shows (a) the voltages at the positive and negative inputs of the two front end amplifiers in two shades of green, and (b) the voltages at the two outputs of the FDA in two shadws of blue.
+The following shows (a) the voltages at the positive and negative inputs of the two front end amplifiers in two shades of green, and (b) the voltages at the two outputs of the FDA in two shades of blue.
 As required for the ADC, the inputs are transformed from a bipolar range from -4V to +4V, to a unipolar range from 0V to 4V.
 
 <p align="center">
@@ -415,12 +415,12 @@ As required for the ADC, the inputs are transformed from a bipolar range from -4
 <br>
 <caption>
 Voltages at inputs to the front end (green) and at the output<a name="repo"></a>
-s of the FDA (red and lavendar).
+s of the FDA (red and lavender).
 </caption>
 </p>
 
 The following shows (a) the output from one side of the FDA (blue), (b) the voltage on the sampling capacitor (red), (c) switching clock for the sampling network (grey).
-We see that voltage on the sampling capacitor easily trackes the input to the ADC.
+We see that voltage on the sampling capacitor easily tracks the input to the ADC.
 
 <figure>
 <p align="center">
@@ -428,13 +428,13 @@ We see that voltage on the sampling capacitor easily trackes the input to the AD
 </p>
 <br>
 <figcaption>
-Postive side output from the FDA (blue), voltage on the sampling capacitor (red), and sampling clock (grey).
+Positive side output from the FDA (blue), voltage on the sampling capacitor (red), and sampling clock (grey).
 </figcaption>
 </figure>
 
 Here we add traces for the current through the sampling cap (green) and the capacitor services as the external charge reservoir (gold).
 Notice the current spike through the sampling capacitor.
-We see this is supplied by the external capacitor acting as charge reservoir, which slowy charges between switch ebents.
+We see this is supplied by the external capacitor acting as charge reservoir, which slowly charges between switch events.
 Notice also that there is no discernible spike in the output from the FDA.
 So the charge reservoir is working as it is supposed.
 On each sampling cycle, the sampling capacitor is able to rapidly come to the voltage presented at the input.
@@ -445,7 +445,7 @@ On each sampling cycle, the sampling capacitor is able to rapidly come to the vo
 </p>
 <br>
 <figcaption>
-Postive side output from the FDA (blue), voltage on the sampling capacitor (red), current through the sampling capacitor (green), current through the external reservoir capacitor (gold) and the sampling clock (grey).
+Positive side output from the FDA (blue), voltage on the sampling capacitor (red), current through the sampling capacitor (green), current through the external reservoir capacitor (gold) and the sampling clock (grey).
 </figcaption>
 </figure>
 
@@ -466,9 +466,9 @@ Spice model with large source impedances.
 </figure>
 
 
-The follwing shows the spectral analysis.  If you do not know how to do this in LTSpice, there is [a short tutorial video here](https://youtu.be/fziUQaVQxA4?feature=shared)
-Here we see that our response is flat to 100kHz and then rolls off only slowy reaching -1.4dB and a 45 degree phase shift at around 1MHz.
-If you want a more agressive roll off you can substitute the caps in the feedback networks in the front end, or use larger caps for the charge reservoir in front of the ADC.
+The following shows the spectral analysis.  If you do not know how to do this in LTSpice, there is [a short tutorial video here](https://youtu.be/fziUQaVQxA4?feature=shared)
+Here we see that our response is flat to 100kHz and then rolls off only slowly reaching -1.4dB and a 45 degree phase shift at around 1MHz.
+If you want a more aggressive roll off you can substitute the caps in the feedback networks in the front end, or use larger caps for the charge reservoir in front of the ADC.
 
 <figure>
 <p align="center">
@@ -479,7 +479,7 @@ Spectral response.
 </figcaption>
 </figure>
 
-The follwing shows the noise analysis. As above, you can [see how to do this in LTSpice in the short tutorial video here](https://youtu.be/hBsBl27etYs?feature=shared).
+The following shows the noise analysis. As above, you can [see how to do this in LTSpice in the short tutorial video here](https://youtu.be/hBsBl27etYs?feature=shared).
 https://youtu.be/hBsBl27etYs?feature=shared
  The noise density remains well below our target for 16 bit precision throughout the entire spectral range, even with a 1M source impedance at the input.
 
@@ -500,10 +500,10 @@ Spectral response is flat and then rolls off by less than 2dB above 100KHz and n
 <a name="timing"></a>
 ## 4. ADC Sampling and Timing
 
-Voltage sampling is controlled by the CNVST pin in the double row header.  Assertion of this pin effectively marks the end of the sampling interval, causes the most recent level at the input to be converted to digital and made available for retrieveal by the host.  The timing relationship between CNVST and the sampling window is important if the ADC sampling is to be synchronized to another instrument or specific external events.
+Voltage sampling is controlled by the CNVST pin in the double row header.  Assertion of this pin effectively marks the end of the sampling interval, causes the most recent level at the input to be converted to digital and made available for retrieval by the host.  The timing relationship between CNVST and the sampling window is important if the ADC sampling is to be synchronized to another instrument or specific external events.
 
 The ADC, a MCP33131D-10, is described in detail in the datasheet found [here](https://ww1.microchip.com/downloads/en/DeviceDoc/MCP33131D-Data-Sheet-DS20005947B.pdf).
-Figure 6-10, page 37, reproducedd below, provides a high level view of the sampling, conversion and transfer cycle.  For detailed timing information see Figure 1-1, page 9 and related text.
+Figure 6-10, page 37, reproduced below, provides a high level view of the sampling, conversion and transfer cycle.  For detailed timing information see Figure 1-1, page 9 and related text.
 
 In the diagram we see that when the CNVST pin is asserted, the inputs are latched and the ADC begins converting the latched signal, which represents the most 300nsecs at the inputs.  After  700nsecs conversion is complete and the data can be read over SPI by a 16 bit transfer.  The transfer can be shortened by asserting the CNVST pin again before the transfer is complete.  The maximum sample rate is 1MSPS for 16 bit with a 60MHz SPI or 800KSPS with a 30MHz SPI.
 The data is a 2's complement 16 bit integer. It is easily converted to an unsigned 16 bit integer by toggling the high order bit.
@@ -527,31 +527,31 @@ Let's begin.
 ### a) Choosing the operating range
 
 If we had a specific research goal in mind, we would consider the phenomena we are going to study, set the voltage range accordingly and proceed with the design from there.
-Designing for a general case with a spec that reads "I want to use this for anything", is always far more difficult and laden with ambiquities.  A practical spec might be "what is the best we can do?"
+Designing for a general case with a spec that reads "I want to use this for anything", is always far more difficult and laden with ambiguities.  A practical spec might be "what is the best we can do?"
 
 As it turns out, 4V can be a convenient range with 5V as the primary power source.
-For scientitic applications, it is preferable to have a bipolar input, for example -4V to 4V rather than unipolar from 0 to 4V.
+For scientific applications, it is preferable to have a bipolar input, for example -4V to 4V rather than unipolar from 0 to 4V.
 If I want to report a measurement as yielding zero volts (0V), most often I have to be able to read voltages above and below 0V.
 And, if I want to study a phenomenon over a range that spans 0V, i.e. from negative to positive, then most often I want to do that all in one go, not half at a time.
 
-As described earlier, for an INA any reasonable range is not  very constraiining.
+As described earlier, for an INA any reasonable range is not  very constraining.
 We can increase gain to zoom-in to a smaller range or add a series resistor to zoom-out to a larger range.
-The bipolar choise has a more significant effect in that any unipolar measurement is inherently half-scale.
+The bipolar choice has a more significant effect in that any unipolar measurement is inherently half-scale.
 
 ### b) What noise level do we need to achieve?
 
 Given that we have chosen 16 bit precision, our noise level should be not very much larger than 1 part in 2<sup>16</sup> (1LSB) relative to our full scale input.
-The ADC will have 1LSB of noise almost no matter what we do, because that's the physics of digiitzing something.
+The ADC will have 1LSB of noise almost no matter what we do, because that's the physics of digitizing something.
 Taking 4V as full scale our noise goal is 4V/65535 ~ 61μV at the input to the ADC, or 120μV at the input to the INA.
 
 
 ### c) Input voltage and current noise densities and the impedance bandwidth tradeoff.
 
-As we discussed in the introduction, noise at the input to an opamp is described in terms of (a) its input voltage noise density e<sub>n</sub> (V/√Hz)
+As we discussed in the introduction, noise at the input to an op amp is described in terms of (a) its input voltage noise density e<sub>n</sub> (V/√Hz)
 and (b) its input current noise density i<sub>n</sub> (A/√Hz).
 We discussed this in the introduction.
 
-Let's see how this works for the ADA4510.  This is an OPAMP designed for high precision and high input impedance.
+Let's see how this works for the ADA4510.  This is an OP AMP designed for high precision and high input impedance.
 The datasheet (Rev 0 is dated 7/2023), lists e<sub>n</sub> ~ 5nV/√Hz and i<sub>n</sub> ~ 4fA/√Hz.
 With current noise density in the range of single digit fA/√Hz, our impedance threshold for current noise is 1Mohm,
 But the noise is still small.
@@ -563,7 +563,7 @@ For a large source impedance the LT1167 has to give away a lot of bandwidth comp
 
 ### d) Maximum slew rate and bandwidth
 
-For an OPAMP, speed can be described by its bandwidth or gain bandwidth product (GPB) and by its maximum slew (V/μs)
+For an OP AMP, speed can be described by its bandwidth or gain bandwidth product (GBP) and by its maximum slew (V/μs)
 It is possible to have a very large bandwidth, but be limited by the maximum slew.
 For example, the LT1167, can support a gain of 1 with a 1MHZ bandwidth, but its maximum slew is 1.2V/μs.
 The ADA4510 has a 10MHz gain bandwidth product, and its maximum slew rate is 19V/μs.
@@ -590,7 +590,7 @@ N.B. When impedances are large, small capacitances become even more important.  
 ### f) Power supply rejection ratio.
 
 Almost any active part used in an analog circuit has a power supply rejection ratio PSRR listed in its datasheet.
-The name of the game, is that the PSRR for each part involved in the analog chain acting on the noise level of whatever is powering it, has to be better than the noise level that we are trying to achieve in our design.   For a 16 bit board, we need an SNR better than 96dB.
+The name of the game, is that the PSRR for each part involved in the analog chain acting on the the noise level of whatever is powering it, has to be better than the noise level that we are trying to achieve in our design.   For a 16 bit board, we need an SNR better than 96dB.
 
 The recommended power supply is posted [here](https://github.com/drmcnelson/Dual-pos-neg-5V-Supply-from-USB-power).
 This is based on the LT1930 and LT1930, the datasheets indicate output noise of about 1mV.   For our amplifier chips a PSRR of even 60dB will get us into the μV range that we need for our noise specs. PSRR for the ADA4510 is 140dB, so we're in pretty good shape.
@@ -601,7 +601,7 @@ A PSRR at -20dB reduces to 9μV or less than 1LSB in the digital output, and vre
 
 ### g) On rail to rail amplifiers
 
-Our 4V range means that we need an OPAMP and FDA that are rail-to-rail with regard to both inputs and outputs and with a common mode tht goes to at least 1/2 of the rail.
+Our 4V range means that we need an OP AMP and FDA that are rail-to-rail with regard to both inputs and outputs and with a common mode that goes to at least 1/2 of the rail.
 
 Some R-R are more R-R than others.
 It is important to check the datasheet carefully to make sure the part you are selecting has adequate input, output and common mode ranges.
@@ -622,4 +622,4 @@ We want to express special appreciation to PCBWay for sponsoring assembly of the
 
 Going back to PCBWay for the next designs and contributing to their community project forum, really is the best kind of praise that I can muster for any vendor.
 
-On that note, we plan to post this design to the PCBWay community forum as our first experiment in this pardadim.  We are eager to see how it works out.
+On that note, we plan to post this design to the PCBWay community forum as our first experiment in this paradigm.  We are eager to see how it works out.
