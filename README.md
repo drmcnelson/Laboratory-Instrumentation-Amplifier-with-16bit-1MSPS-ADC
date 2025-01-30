@@ -1,4 +1,4 @@
-# Laboratory Instrumentation Amplifier with bipolar inputs, 16bit 1MSPS ADC, SPI for Teensy, Arduino
+		# Laboratory Instrumentation Amplifier with bipolar inputs, 16bit 1MSPS ADC, SPI for Teensy, Arduino
 
 <p align="center">
 <img src="./Images/InAmp.800p.jpg" alt="INA_actual" width="50%" height="auto">
@@ -157,7 +157,7 @@ There is a low pass filter with time constant at the Nyquist limit for the 1MHz 
 
 ### f) Increasing gain
 Gain can be increased by adding the resistor Rg.
-There is a thru hole footprint for this part located between the input header and the first op amp chip.
+There is a thru hole footprint for this part located between the input header and the first Op Amp chip.
 The gain equation is G = 1/2 + 10K/Rg.
 Rg = 100 will give you a gain of 100.5.
 With a gain of 100, full scale on each side of the differential input is 40mV and the full scale differential signal is 80mV.
@@ -297,7 +297,7 @@ INA with differential output stage and differential ADC.
 
 ### b) Component selection, in brief
 
-For our OP AMP selection, key parameters include the input current noise density i<sub>n</sub>, input voltage noise density e<sub>n</sub>, slew rate, and power supply rejection ratio (PSRR) as follows:
+For our Op Amp selection, key parameters include the input current noise density i<sub>n</sub>, input voltage noise density e<sub>n</sub>, slew rate, and power supply rejection ratio (PSRR) as follows:
 <ul>
 <li>
 Voltage noise density should be in the range of nV/√Hz is a pre-requisite for 16 bit precision with 1MHz bandwidth.
@@ -309,11 +309,11 @@ Current noise density in the range of single digit fA/√Hz is a pre-requisite f
 Slew rate in the range of 10V/us or better is a requirement for being able to study phenomena that appear as steps or transients on a μs time scale.
 </li>
 <li>
-Power supply rejection ratio above 60dB for the OP AMP and FDA with the recommended power supply, discussed later in further detail for the ADC.
+Power supply rejection ratio above 60dB for the Op Amp and FDA with the recommended power supply, discussed later in further detail for the ADC.
 </li>
 </ul>
 
-For the design provided here, the input stage is an ADA4510-2,  which is a dual OP AMP with i<sub>n</sub> = 4fA/√Hz, e<sub>n</sub> ≈ 5nV/√Hz, maximum slew = 19V/μs and PSRR 140dB.
+For the design provided here, the input stage is an ADA4510-2,  which is a dual Op Amp with i<sub>n</sub> = 4fA/√Hz, e<sub>n</sub> ≈ 5nV/√Hz, maximum slew = 19V/μs and PSRR 140dB.
 As noted above, at 10Mohms at 1MHz, our noise is 40uV.
 
 For the FDA, all of the above are important except that the current noise requirement is relaxed since the FDA sees low source impedances in the outputs from the first stage.  We choose an LT1994, which exceeds the front end specs with e<sub>n</sub> ≈ 3nV/√Hz and slew at 85V/μs.  Its PSRR is 105dB.
@@ -357,7 +357,7 @@ The buffer has to supply current on the slower time scale to keep the reservoir 
 The design process for the interface to the ADC is then:
    1) Choose the external capacitor to be a few times larger than the internal capacitor, then
    2) Choose the external resistor so that the time constant is faster than 1/2 of the sampling rate, and then
-   3) Choose an op amp that is (a) able to deliver current equal to the full scale voltage divided by the external resistor, and (b) has a maximum slew that is much larger than the full scale voltage divided by the sampling period.
+   3) Choose an Op Amp that is (a) able to deliver current equal to the full scale voltage divided by the external resistor, and (b) has a maximum slew that is much larger than the full scale voltage divided by the sampling period.
  
  With that high level view, let's take a look at our ADC.
 
@@ -547,11 +547,11 @@ Taking 4V as full scale our noise goal is 4V/65535 ~ 61μV at the input to the A
 
 ### c) Input voltage and current noise densities and the impedance bandwidth tradeoff.
 
-As we discussed in the introduction, noise at the input to an op amp is described in terms of (a) its input voltage noise density e<sub>n</sub> (V/√Hz)
+As we discussed in the introduction, noise at the input to an Op Amp is described in terms of (a) its input voltage noise density e<sub>n</sub> (V/√Hz)
 and (b) its input current noise density i<sub>n</sub> (A/√Hz).
 We discussed this in the introduction.
 
-Let's see how this works for the ADA4510.  This is an OP AMP designed for high precision and high input impedance.
+Let's see how this works for the ADA4510.  This is an Op Amp designed for high precision and high input impedance.
 The datasheet (Rev 0 is dated 7/2023), lists e<sub>n</sub> ~ 5nV/√Hz and i<sub>n</sub> ~ 4fA/√Hz.
 With current noise density in the range of single digit fA/√Hz, our impedance threshold for current noise is 1Mohm,
 But the noise is still small.
@@ -563,7 +563,7 @@ For a large source impedance the LT1167 has to give away a lot of bandwidth comp
 
 ### d) Maximum slew rate and bandwidth
 
-For an OP AMP, speed can be described by its bandwidth or gain bandwidth product (GBP) and by its maximum slew (V/μs)
+For an Op Amp, speed can be described by its bandwidth or gain bandwidth product (GBP) and by its maximum slew (V/μs)
 It is possible to have a very large bandwidth, but be limited by the maximum slew.
 For example, the LT1167, can support a gain of 1 with a 1MHZ bandwidth, but its maximum slew is 1.2V/μs.
 The ADA4510 has a 10MHz gain bandwidth product, and its maximum slew rate is 19V/μs.
@@ -601,7 +601,7 @@ A PSRR at -20dB reduces to 9μV or less than 1LSB in the digital output, and vre
 
 ### g) On rail to rail amplifiers
 
-Our 4V range means that we need an OP AMP and FDA that are rail-to-rail with regard to both inputs and outputs and with a common mode that goes to at least 1/2 of the rail.
+Our 4V range means that we need an Op Amp and FDA that are rail-to-rail with regard to both inputs and outputs and with a common mode that goes to at least 1/2 of the rail.
 
 Some R-R are more R-R than others.
 It is important to check the datasheet carefully to make sure the part you are selecting has adequate input, output and common mode ranges.
