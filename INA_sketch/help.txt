@@ -1,0 +1,98 @@
+#Microcontroller functions
+#  version           - report firmware version
+#  read temperature  - report microcontroller temperature
+#  reboot            - reboots the entire board
+#
+#Identifier string (63 bytes)
+#  store identifier <identifier>
+#  erase identifier
+#  identifier        - list identifier string
+#
+#  ******************************************************************************
+#MCP33131D (16bit ADC) functions
+#  configuration     - report configuration, uni/bipolar, 16bits, etc.
+#  read raw          - read MCP33131D and print as raw value
+#  read volts        - read MCP33131D and print as voltage
+#  read              - read MCP33131D and print as signed integer
+#  read              - read MCP33131D and print as unsigned integer
+#  ------------------------------------------------------------------------------
+#  clock <knts> <usecs> <action> <format> - clock and report
+#
+#    actions:
+#         average      - report average
+#         sum          - report sum
+#         buffer       - read to buffer, report when done
+#         <none>       - default to read and report single values
+#
+#   formats:
+#        volts         - voltages
+#        binary        - for buffered reads, 16bit binary transfer
+#        <default>     - default to integers
+#
+#    example:
+#        clock 10 1000 buffer volts
+#        clock 10 1000 average volts
+#
+#  clock stop        - stop a clocking operatinon
+#  clock print       - show the clock setup
+#
+#  ------------------------------------------------------------------------------
+#  trigger [keyword] <pin> <mode> [<knt_trig|0>] {action} {format spec}
+#
+#     Keywords
+#       nostart|setup         - see trigger start
+#       nostart               - see trigger start
+#       nowait                - see trigger wait 
+#       timeout <seconds>     - turns on start and wait
+#       default is start and wait, timeout 0 to wait without timeout
+#
+#     pin       - see the pins commands for a list of pins:
+#     mode      - rising, falling or change
+#     knt_trig  - number of reads for singles, frames for clocked, 0=forever
+#
+#     Actions - single reads
+#       clock <parameters...>   - as above
+#       buffer [format spec]    - buffered singlereads
+#       average                 - average of single reads
+#       sum [volts]             - sum of single read
+#       <none>                  - default to single reads
+#
+#       test                    - reports elpased time at each trigger event
+#
+#     Example:
+#       trig trigger rising 0 clock 100 1000 buffer volts 
+#       (on each trigger, clock 100 reads at 1msec intervals, report volts
+#
+#  trigger stop               - after starting a triggered action, nowait
+#  trigger start              - after a trigger command with nostart
+#  trigger wait [timeoutsecs] - after a trigger command with nostart
+#  trigger print              - display the configured trigger
+#
+#  ------------------------------------------------------------------------------
+#  Synchronize reads to a pin, buffered
+#
+#      sync <pin> <rising|falling> <knts> <format specified>
+#
+#      see start|stop master clock, below
+#
+#  ******************************************************************************
+# Controller Board Pin Functions
+#
+#  set pin [n] output|input|pullup|analog|lo|hi|clock <frequency>|noclock
+#  read pin [n]                     - read pin or all, digital or analog binary
+#  write pin n high|low|1|0         - caution, sets pin as output
+#  pulse pin n usecs [high|low|1|0] - caution, sets pin as output
+#  toggle pin n                     - caution, sets pin as output
+#
+#  set pin <n> clock <frequency>    - output a square wave
+#  set pin <n> noclock              - stop outputing a clock
+#
+#  start master clock frequency
+#  stop master clock frequency
+#
+#  ------------------------------------------------------------------------------
+#Read and average internal analog inputs
+#  set analog [channel0 channel1 .... ] - select channels for read analog
+#  read analog [ navgs ]           - reads the selected set
+#  read analog [ nchannel navgs ]  - read specified channel
+#
