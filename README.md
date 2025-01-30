@@ -100,7 +100,7 @@ On that note, we plan to post this design to the PCBWay community forum as our f
 
 To obtain boards, the options include ordering a board through PCBWay per the above, or contact me and then click the sponsor button.
 The parts cost at Digikey is USD 36 per board at this writing.
-Preparing an order still takes a few hourse of careful attention since we review all of the files and check for updates in the BOM each time.
+Preparing an order still takes a few hours of careful attention since we review everything and check for updates in the BOM each time.
 <br>
 
 
