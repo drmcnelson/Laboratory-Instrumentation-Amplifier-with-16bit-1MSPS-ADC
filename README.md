@@ -1,4 +1,4 @@
-# Laboratory Instrumentation Amplifier with bipolar inputs, 16bit 1MSPS ADC, SPI for Teensy, Arduino, Raspberry
+# Laboratory Instrumentation Amplifier with bipolar inputs, 16bit 1MSPS ADC, SPI for Teensy, Arduino
 
 <p align="center">
 <img src="./Images/InAmp.800p.jpg" alt="INA_actual" width="50%" height="auto">
