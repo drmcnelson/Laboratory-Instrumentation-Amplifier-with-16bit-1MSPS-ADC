@@ -36,9 +36,9 @@ We can think of a "noise resistance", R<sub>n</sub> = e<sub>n</sub>/i<sub>n</sub
 When the amplifier input sees an impedance larger than R<sub>n</sub>, current noise dominates and noise increases more rapidly with bandwidth.
 Low noise with high impedance and bandwidth requires low noise density with high noise resistance, alongside adequate bandwidth and slew.
 
-Let's illustrate this with a numerical example. If we want 16 bit data for a signal of 1V, the noise (rms) should to be around 10μV or smaller.
+Let's illustrate this with a numerical example. If we want 16 bit data for a signal of 1V, the noise (rms) should be around 10μV or smaller.
 For a bandwidth of 1MHz, we need e<sub>n</sub> ≈ 10nV/√Hz.
-And for an impedance 10Mohm, we need i<sub>n</sub>  ≈ 1fA/√Hz.
+And for an impedance of 10Mohm, we need i<sub>n</sub>  ≈ 1fA/√Hz.
 That is, we need current noise density in the range of single digit fA/√Hz, or smaller.
 It is challenging to find what we need in older INA chips (see [Table 5.8 in H&H AOE 3rd ed.](https://archive.org/details/the-art-of-electronics-3rd-ed-2015_202008/page/363/mode/1up)),
 But there *are* newer Op Amps with ~10nV/√Hz and ~1fA/√Hz noise densities, >MHZ bandwidth and >10V/μs slew.
@@ -53,7 +53,7 @@ The analog noise is well managed within a small area of the circuit board, and a
 <a name="about"></a>
 ### About the INA and other contents of this repository:
 
-In this repository we provide cad files and software codes to make and operate an up-to-date instrumentation amplifier (INA) that can accommodate 10Mohm impedances with 16 bit precision at 1MSPS.
+In this repository we provide cad files and software source codes to make and operate an up-to-date instrumentation amplifier (INA) that can accommodate 10Mohm impedances with 16 bit precision at 1MSPS.
 The host interface is a simple convert (CNVST) signal and SPI.
 Asserting the "CNVST" line initiates conversion to digital and
 after 700 nsecs, with CNVST low, a 16 bit SPI transfer retrieves the data.
@@ -67,10 +67,10 @@ The MCU board appears as a serial device to the computer with human readable com
 The source code has been compiled for and run on a Teensy 4, an Arduino UNO R4 and a STM32 Nucleo 144 (F7).
 We prefer the Teensy for having the best SPI implementation and the fastest USB.
 
-As described below, the basic operation of the device is simple and it should be easy to customize or crib from the source code or python codes to integrate the INA into your experiment.
+As described below, the basic operation of the device is simple and it should be easy to customize or crib from the source code or python code to integrate the INA into your experiment.
 
 In the following we include some discussion of the design process, especially as related to part selection.
-And we provide spice models that may help you check your changes if you want to make any changes to the design.
+And we provide spice models that may help you check your changes, if you want to make any changes to the design.
 
 For a more thorough discussion of the electrical topics mentioned here, the reader is referred to Horowitz, P., & Hill, W. (2015). The art of electronics (3rd ed.). Cambridge University Press. ISBN-10 0521809266.  Especially see Chapter 5 "Precision Circuits" and Chapter 8 "Low Noise Techniques".
 
@@ -143,33 +143,34 @@ The power architecture of the INA assumes the the board is powered by this power
 The power supply in turn is normally powered from the filtered +5V power connector provided on the controller although it can alternatively be powered directly from USB
 
 ### d) The complete setup with controller and recommended power supply.
-The following shows complete setup with the T4 based controller and power supply.  Notice the power supply is powered by the +5V connector on the controller and then powers the INA.   The INA is connected to the controller by a 12 pin (2x6) ribbon cable.
+The following shows a complete setup with the INA, T4 based controller and power supply.  Notice the power supply is powered by the +5V connector on the controller and then powers the INA.   The INA is connected to the controller by a 12 pin (2x6) ribbon cable.
 
 <p align="center">
 <img src="./Images/InAmpSetup.p800.jpg" alt="INA_setup" width="50%" height="auto">
 </p>
 
 ### e) Input range and bandwidth
-The range at each side of the differential input is +/-4V.
+The range at each side of the differential input is -4V to +4V.
 Full scale for the differential signal is therefore 8V.
 Spectral response is flat from DC.
 There is a low pass filter with time constant at the Nyquist limit for the 1MHz sample rate.
 
 ### f) Increasing gain
 Gain can be increased by adding the resistor Rg.
-There is a thru hole footprint for this part located between the input header and the first Op Amp chip.
+There is a thru-hole footprint for this part located between the input header and the first Op Amp chip.
 The gain equation is G = 1/2 + 10K/Rg.
 Rg = 100 will give you a gain of 100.5.
-With a gain of 100, full scale on each side of the differential input is 40mV and the full scale differential signal is 80mV.
+With a gain of 100, the full scale range on each side of the differential input is effectively 40mV and the full scale differential signal is 80mV.
 Larger inputs will clip since the rails for the Op Amps are just a little past -4V and +4V.
 
 ### g) Jumpers, selecting input impedance
-There are two jumpers adjacent to each side of the differential input.
+There are three pin jumpers adjacent to each side of the differential input.
 These allow you to select a 10M or 100K shunt to ground.
+With no jumper installed the input impedance is that of the non-inverting input of the Op Amp.
 It is important to have some path to ground, whether it is through the shunt resistor or the sample, rather than leave the input to drift off to one of the rails.
 
 ### h) Thermistor and measurements with voltage divider
-You might use the internal 100K shunt with an external thermistor to make accurate temperature measurements, or with an external resistor to form a divider to look at larger voltages.
+You might use the internal 100K shunt with an external 100K thermistor to make accurate temperature measurements, or with an external resistor to form a divider to look at larger voltages.
 
 The setup with a thermistor would look like the following where Vin is a known constant voltage and the internal resistor is selected by the jumpers as described above.  The controller has a high precision voltage reference output that you can use for this.
 
@@ -271,7 +272,7 @@ The traditional INA architecture is shown in the following diagram.
 The input stage is a pair of Op Amps tied together by the resistor network R1-Rg-R1. The second stage is a difference amplifier with single ended output.
 The overall gain is G = (1 + 2R1/Rg)(R3/R2).
 This is a well studied circuit, you can read about it
-in the textbook Horowitz and Hill cited in the introduction,
+in the textbook by Horowitz and Hill cited in the introduction,
 or at [Wikipedia](https://en.wikipedia.org/wiki/Instrumentation_amplifier)
 or in the many vendor application notes on the subject.
 
@@ -300,7 +301,7 @@ INA with differential output stage and differential ADC.
 For our Op Amp selection, key parameters include the input current noise density i<sub>n</sub>, input voltage noise density e<sub>n</sub>, slew rate, and power supply rejection ratio (PSRR) as follows:
 <ul>
 <li>
-Voltage noise density should be in the range of nV/√Hz is a pre-requisite for 16 bit precision with 1MHz bandwidth.
+Voltage noise density should be in the range of nV/√Hz for 16 bit precision with 1MHz bandwidth.
 </li>
 <li>
 Current noise density in the range of single digit fA/√Hz is a pre-requisite for 16 bit precision with order 10 Mohm input impedance and 1 MHz bandwidth.
@@ -309,7 +310,7 @@ Current noise density in the range of single digit fA/√Hz is a pre-requisite f
 Slew rate in the range of 10V/us or better is a requirement for being able to study phenomena that appear as steps or transients on a μs time scale.
 </li>
 <li>
-Power supply rejection ratio above 60dB for the Op Amp and FDA with the recommended power supply, discussed later in further detail for the ADC.
+Power supply rejection ratio above 60dB is a requirement for the Op Amp and for the FDA, with the recommended power supply.  This is discussed later in further detail for the ADC.
 </li>
 </ul>
 
@@ -320,11 +321,11 @@ For the FDA, all of the above are important except that the current noise requir
 
 Both the ADA4510 and LT1994 are rail to rail parts.
 
-For the ADC, our requirements include 16bits, 1MSPS, differential inputs, reference voltage, input range to 4V, SPI for the interface to the MCU, and able to accommodate 3.3V or 5V logic levels to be able to interface to a wide range of Arduino boards.  The precision and speed puts us in the range of a SAR type ADC.
+For the ADC, our requirements include 16bits, 1MSPS, differential inputs, reference voltage, input range to 4V on each side of the differential input, SPI for the interface to the MCU, and it should accommodate 3.3V or 5V logic levels to be able to interface to a wide range of Arduino boards.  The precision and speed puts us in the range of a SAR type ADC.
 The flexibility in logic levels narrows the selection somewhat.
 It is also important to closely check performance specs including latency, missing codes, SNR, INL and DNL.
 
-In this design we choose the Microchip MCP33131D as a 16 bit differential input 1MSPS SAR type ADC with SPI that can accommodate 3.3V logic for the Teensy boards or 5V logic for the Uno and Nucleo boards.
+In this design we choose the Microchip MCP33131D as a 16 bit differential input 1MSPS SAR type ADC with SPI that can accommodate the required logic levels.
 The SNR is listed as 91.3 dB which translates to a noise level of about 1 LSB.
 This is one spec where the corresponding TI part might seem marginally better, but it comes at the cost of only accepting 3.3V logic.
 
