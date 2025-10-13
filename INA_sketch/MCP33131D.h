@@ -183,8 +183,10 @@ SPISettings spi_settings(MCP33131D_SPI_SPEED, MSBFIRST, SPI_MODE0);   // 30 MHz,
 // Data represenation (type)
 #if defined(MCP33131D_SIGNED)
 typedef int16_t mcp33131d_t;
+typedef int32_t mcp33131d_sum_t;
 #elif defined(MCP33131D_UNSIGNED)
 typedef uint16_t mcp33131d_t;
+typedef uint32_t mcp33131d_sum_t;
 #endif
 
 #define MCP33131D_FORMAT_BINARY 0
@@ -282,7 +284,7 @@ public:
   inline static void (*single_callback)();
   inline static unsigned int single_cyccnt;
   
-  inline static mcp33131d_t sum_val;
+  inline static mcp33131d_sum_t sum_val;
   inline static unsigned int sum_counter;
   inline static unsigned int sum_knts;
   inline static void (*sum_callback)();
@@ -331,6 +333,9 @@ public:
     SPI.begin();
     SPI.beginTransaction(spi_settings);
 
+    Serial.print("MCP33131D start SPI, CS pin ");
+    Serial.println(MCP33131D_CNVSTPIN);
+    
 #ifdef MCP33131D_TEENSY_FASTSPI
     saved_framesz = get_framesz( lpspi );
     set_framesz( lpspi, 16 );
@@ -1891,7 +1896,7 @@ public:
     return true;
   }
 
-  mcp33131d_t clockedSum(unsigned int knts=1000, unsigned long usecs=1000, bool wait=true)
+  mcp33131d_sum_t clockedSum(unsigned int knts=1000, unsigned long usecs=1000, bool wait=true)
   {
     if (!clockedSum_(knts,usecs,printSum,wait)) {
       return 0;
