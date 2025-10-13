@@ -47,6 +47,11 @@
 #define SPAREPIN 3
 #endif
 
+#if defined(ARDUINO_TEENSY40)
+#define CNVSTPIN 9
+#define CSPIN 9
+#endif
+
 #ifndef CNVSTPIN
 #define CNVSTPIN 10
 #endif
