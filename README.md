@@ -132,9 +132,9 @@ In the KiCAD files directory you will find a zip file with gerbers, drill and pl
 
 ### b) Controllers
 You may want to use the INA with one of our controllers.
-Please see our [T4.0 based controller, here](https://github.com/drmcnelson/SPI-Instrumentation-Controller-T4.0)
-and our [T4.1 based controller, here](https://github.com/drmcnelson/SPI-Instrumentation-Controller-T4.1).
-We recommend these over the R4 and N144 because of the faster processor and faster USB and because of the native 16 bit transfer capability already built into  the Teensy SPI library
+Please see our new [Teensy 4.0 based controller here (rev3)](https://github.com/drmcnelson/Instrumentation-Controller-T4.0-Rev3) 
+and our [T4.1 based controller here](https://github.com/drmcnelson/SPI-Instrumentation-Controller-T4.1).
+We recommend these over other Arduino type MCU boards because of (a) the faster processor, (b) faster USB, (c) native 16 bit transfer capability already built into the Teensy SPI library, and (d) managed power.
 
 ### c) Power requirements and recommended power supply
 The INA requires a -5V,+5V power supply.
@@ -146,7 +146,13 @@ The power supply in turn is normally powered from the filtered +5V power connect
 The following shows a complete setup with the INA, T4 based controller and power supply.  Notice the power supply is powered by the +5V connector on the controller and then powers the INA.   The INA is connected to the controller by a 12 pin (2x6) ribbon cable.
 
 <p align="center">
-<img src="./Images/InAmpSetup.p800.jpg" alt="INA_setup" width="50%" height="auto">
+<img src="./Images/INA-setup-with-R3.jpg" alt="INA_setup" width="40%" height="auto">
+</p>
+
+Here we show the input connectors. The instrumentation amplifier can be used as a single ended or differential input.  Input impedance is jumper selected as will be discussed.
+
+<p align="center">
+<img src="./Images/INA-input-pins.jpg" alt="INA_setup" width="40%" height="auto">
 </p>
 
 ### e) Input range and bandwidth
