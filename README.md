@@ -4,7 +4,7 @@
 <img src="./Images/InAmp.800p.jpg" alt="INA_actual" width="50%" height="auto">
 </p>
 
-By [Dr M. C. Nelson](https://github.com/drmcnelson/Laboratory-Instrumentation-Amplifier-with-16bit-1MSPS-ADC),  [Copyright 2020-2026, Patent Pending](LICENSE)
+By [Dr M. C. Nelson](https://github.com/drmcnelson/Laboratory-Instrumentation-Amplifier-with-16bit-1MSPS-ADC),  [Copyright 2020-2026](LICENSE)
 
 > **Important Build Note:** To ensure performance and alignment with the validated hardware and firmware, please build only from the **[Original Repository](https://github.com/drmcnelson/Laboratory-Instrumentation-Amplifier-with-16bit-1MSPS-ADC)**. 
 >
