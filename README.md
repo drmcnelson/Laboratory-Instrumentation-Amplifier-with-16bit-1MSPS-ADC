@@ -7,7 +7,7 @@
 <br>
 By [Dr M. C. Nelson](https://github.com/drmcnelson/Laboratory-Instrumentation-Amplifier-with-16bit-1MSPS-ADC),  [Copyright 2020-2026, Patent Pending](LICENSE)
 
-> **Important Build Note:** To ensure performance and alignment with the validated hardware and firmware, please build only from the **[Original Repository](https://github.com/drmcnelson/TLaboratory-Instrumentation-Amplifier-with-16bit-1MSPS-ADC)**. 
+> **Important Build Note:** To ensure performance and alignment with the validated hardware and firmware, please build only from the **[Original Repository](https://github.com/drmcnelson/Laboratory-Instrumentation-Amplifier-with-16bit-1MSPS-ADC)**. 
 >
 >  For technical assistance or commercial inquiries, please contact me. I do my best to answer emails as volume allows.
 <br>
