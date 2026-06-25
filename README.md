@@ -4,6 +4,14 @@
 <img src="./Images/InAmp.800p.jpg" alt="INA_actual" width="50%" height="auto">
 </p>
 
+<br>
+By [Dr M. C. Nelson](https://github.com/drmcnelson/Laboratory-Instrumentation-Amplifier-with-16bit-1MSPS-ADC),  [Copyright 2020-2026, Patent Pending](LICENSE)
+
+> **Important Build Note:** To ensure performance and alignment with the validated hardware and firmware, please build only from the **[Original Repository](https://github.com/drmcnelson/TLaboratory-Instrumentation-Amplifier-with-16bit-1MSPS-ADC)**. 
+>
+>  For technical assistance or commercial inquiries, please contact me. I do my best to answer emails as volume allows.
+<br>
+
 ---
 ### Table of contents
 [Introduction](#intro)<br>
@@ -15,12 +23,6 @@
 [6. PCBWay sponsorship and acknowledgement](#ack)<br>
 
 ---
-<br>
-By [Dr M. C. Nelson](https://github.com/drmcnelson/Laboratory-Instrumentation-Amplifier-with-16bit-1MSPS-ADC),  [Copyright 2020-2026, Patent Pending](LICENSE)
-
-> **Important Build Note:** To ensure performance and alignment with the validated hardware and firmware, please build only from the **[Original Repository](https://github.com/drmcnelson/TLaboratory-Instrumentation-Amplifier-with-16bit-1MSPS-ADC)**. 
->
->  For technical assistance or commercial inquiries, please contact me. I do my best to answer emails as volume allows.
 <br>
 
 <a name="intro"></a>
